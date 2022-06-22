@@ -5,6 +5,8 @@
       <text class="title" @click="onClick">{{ title }}</text>
     </view>
     <u-search placeholder="日照香炉生紫烟"></u-search>
+    <view @click="onCollect">收藏</view>
+    <view @click="onRemove">删除</view>
   </view>
 </template>
 
@@ -29,6 +31,42 @@ export default {
         },
       });
       console.log("res==>", res);
+    },
+    async onCollect() {
+      const res = await wx.cloud.callFunction({
+        name: "apiEntry",
+        data: {
+          type: "collect",
+          action: "collectAlbum",
+          params: {
+            albumData: {
+              artistName: "周杰伦",
+              collectionId: 535824731,
+              collectionName: "葉惠美",
+              cover: {
+                high: "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/45/8a/e4/458ae484-dc8b-5683-ce04-8d2948346462/JAY.jpg/3000x3000bb.jpg",
+                low: "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/45/8a/e4/458ae484-dc8b-5683-ce04-8d2948346462/JAY.jpg/100x100bb.jpg",
+                mid: "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/45/8a/e4/458ae484-dc8b-5683-ce04-8d2948346462/JAY.jpg/1000x1000bb.jpg",
+              },
+              releaseDate: "2003-07-29T07:00:00Z",
+              trackCount: 11,
+            },
+          },
+        },
+      });
+      console.log("res==>", res);
+    },
+    async onRemove() {
+      const res = await wx.cloud.callFunction({
+        name: "apiEntry",
+        data: {
+          type: "collect",
+          action: "removeAlbum",
+          params: {
+            albumId: "6d85a2b962b32a720c1e8b775e82b98e",
+          },
+        },
+      });
     },
   },
 };

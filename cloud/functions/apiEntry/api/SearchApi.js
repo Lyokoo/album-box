@@ -21,6 +21,7 @@ class SearchApi {
           return {
             collectionId: item.collectionId, // 专辑ID
             collectionName: item.collectionName, // 专辑名称
+            artistId: item.artistId, // 艺术家ID
             artistName: item.artistName, // 艺术家名称
             trackCount: item.trackCount, // 专辑中的歌曲数量
             cover: {
@@ -38,7 +39,7 @@ class SearchApi {
         data: res,
       };
     } catch (e) {
-      return { code: 5000 };
+      return { code: 5000, e: e.toString() };
     }
   }
 }

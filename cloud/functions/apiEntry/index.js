@@ -1,16 +1,16 @@
 const cloud = require("wx-server-sdk");
 cloud.init();
 const SearchApi = require("./api/SearchApi");
+const CollectApi = require("./api/CollectApi");
 
-// global.cloud = cloud;
-// global.db = cloud.database();
-// global._ = db.command;
-// global.$ = _.aggregate;
+global.cloud = cloud;
+global.db = cloud.database();
 
-const Types = ["search", "star"];
+const Types = ["search", "collect"];
 
 const apiMap = {
   search: new SearchApi(),
+  collect: new CollectApi(),
 };
 
 // API 入口函数
