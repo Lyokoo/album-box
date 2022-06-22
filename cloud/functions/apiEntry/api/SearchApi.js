@@ -1,4 +1,5 @@
 const axios = require("axios").default;
+const { getClipImageUrl } = require("../utils/image");
 
 class SearchApi {
   async getAlbumList(params) {
@@ -16,19 +17,20 @@ class SearchApi {
       }).then((response) => {
         const data = response.data;
         const { results } = data || {};
-        return (results || []).map(item => {
+        return (results || []).map((item) => {
           return {
             collectionId: item.collectionId, // 专辑ID
             collectionName: item.collectionName, // 专辑名称
             artistName: item.artistName, // 艺术家名称
             trackCount: item.trackCount, // 专辑中的歌曲数量
-            cover: { // 专辑封面
-              low: item.artworkUrl100,
-              mid: item.artworkUrl100,
-              high: item.artworkUrl100,
+            cover: {
+              // 专辑封面
+              low: getClipImageUrl(item.artworkUrl100, 100),
+              mid: getClipImageUrl(item.artworkUrl100, 1000),
+              high: getClipImageUrl(item.artworkUrl100, 3000),
             },
             releaseDate: item.releaseDate, // 发行时间
-          }
+          };
         });
       });
       return {
