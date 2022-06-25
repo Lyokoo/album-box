@@ -1,12 +1,12 @@
 <template>
   <view class="content">
     <image class="logo" src="/static/logo.png"></image>
-    <view>
-      <text class="title" @click="onClick">{{ title }}</text>
-    </view>
-    <u-search placeholder="日照香炉生紫烟"></u-search>
-    <view @click="onCollect">收藏</view>
-    <view @click="onRemove">删除</view>
+    <view @click="search">[search] 搜索</view>
+    <view @click="keepAlbum">[album]收藏单张专辑</view>
+    <view @click="getAlbum">[album]获取收藏的单张专辑</view>
+    <view @click="getAlbumList">[album]获取收藏的专辑列表</view>
+    <view @click="removeAlbum">[album]移除收藏的单张专辑</view>
+    <!-- <view @click="onRemove">删除</view> -->
   </view>
 </template>
 
@@ -19,30 +19,30 @@ export default {
   },
   onLoad() {},
   methods: {
-    async onClick() {
+    async search() {
       const res = await wx.cloud.callFunction({
         name: "apiEntry",
         data: {
           type: "search",
-          action: "getAlbumList",
+          action: "searchAlbumList",
           params: {
-            query: "叶惠美",
+            query: "Eason",
           },
         },
       });
-      console.log("res==>", res);
     },
-    async onCollect() {
+
+    async keepAlbum() {
       const res = await wx.cloud.callFunction({
         name: "apiEntry",
         data: {
-          type: "collect",
-          action: "collectAlbum",
+          type: "keep",
+          action: "keepAlbum",
           params: {
             albumData: {
               artistName: "周杰伦",
-              collectionId: 535824731,
-              collectionName: "葉惠美",
+              albumId: 535824731,
+              albumName: "葉惠美",
               cover: {
                 high: "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/45/8a/e4/458ae484-dc8b-5683-ce04-8d2948346462/JAY.jpg/3000x3000bb.jpg",
                 low: "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/45/8a/e4/458ae484-dc8b-5683-ce04-8d2948346462/JAY.jpg/100x100bb.jpg",
@@ -54,16 +54,41 @@ export default {
           },
         },
       });
-      console.log("res==>", res);
     },
-    async onRemove() {
+
+    async getAlbum() {
       const res = await wx.cloud.callFunction({
         name: "apiEntry",
         data: {
-          type: "collect",
+          type: "keep",
+          action: "getAlbum",
+          params: {
+            _id: "535824731-wx8f70cf87f04178f0",
+          },
+        },
+      });
+    },
+
+    async getAlbumList() {
+      const res = await wx.cloud.callFunction({
+        name: "apiEntry",
+        data: {
+          type: "keep",
+          action: "getAlbumList",
+          params: {
+          },
+        },
+      });
+    },
+
+    async removeAlbum() {
+      const res = await wx.cloud.callFunction({
+        name: "apiEntry",
+        data: {
+          type: "keep",
           action: "removeAlbum",
           params: {
-            albumId: "6d85a2b962b32a720c1e8b775e82b98e",
+            _id: "535824731-wx8f70cf87f04178f0",
           },
         },
       });

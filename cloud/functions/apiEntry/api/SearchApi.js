@@ -1,14 +1,21 @@
 const axios = require("axios").default;
 const { getClipImageUrl } = require("../utils/image");
+const UserApi = require("./UserApi");
 
 class SearchApi {
-  async getAlbumList(params) {
+  // 搜索专辑列表
+  async searchAlbumList(params) {
     try {
-      const { query } = params || {};
+      const { openId, query } = params || {};
       if (typeof query !== "string" || !query) {
-        throw new Error();
+        throw new Error("[search] 参数错误");
       }
-      const res = await axios({
+
+      // 记录搜索历史
+      const userApi = new UserApi();
+      userApi.addSearchHistory(params);
+
+      const list = await axios({
         method: "get",
         baseURL: "https://itunes.apple.com",
         url: `/search?media=music&country=CN&entity=album&term=${encodeURIComponent(
@@ -19,8 +26,8 @@ class SearchApi {
         const { results } = data || {};
         return (results || []).map((item) => {
           return {
-            collectionId: item.collectionId, // 专辑ID
-            collectionName: item.collectionName, // 专辑名称
+            albumId: item.collectionId, // 专辑ID
+            albumName: item.collectionName, // 专辑名称
             artistId: item.artistId, // 艺术家ID
             artistName: item.artistName, // 艺术家名称
             trackCount: item.trackCount, // 专辑中的歌曲数量
@@ -34,12 +41,24 @@ class SearchApi {
           };
         });
       });
+
+      const db = cloud.database();
+      const UserTable = db.collection("User");
+      const { data } = await UserTable.doc(openId)
+        .get()
+        .catch((e) => {
+          return {};
+        });
+
       return {
         code: 2000,
-        data: res,
+        data: {
+          keepAlbums: data ? data.keepAlbums : [],
+          list,
+        },
       };
     } catch (e) {
-      return { code: 5000, e: e.toString() };
+      return { code: 5000, msg: e.toString() };
     }
   }
 }
