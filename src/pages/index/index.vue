@@ -26,10 +26,11 @@ export default {
           type: "search",
           action: "searchAlbumList",
           params: {
-            query: "Eason",
+            query: "李荣浩",
           },
         },
       });
+      console.log(res);
     },
 
     async keepAlbum() {

@@ -7,9 +7,16 @@ class SearchApi {
   async searchAlbumList(params) {
     try {
       const { openId, query } = params || {};
+
+      // 参数校验
       if (typeof query !== "string" || !query) {
         throw new Error("[search] 参数错误");
       }
+
+      // 敏感词校验
+      await cloud.openapi.security.msgSecCheck({
+        content: query,
+      });
 
       // 记录搜索历史
       const userApi = new UserApi();
