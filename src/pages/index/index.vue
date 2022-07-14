@@ -6,7 +6,7 @@
     <view @click="getAlbum">[album]获取收藏的单张专辑</view>
     <view @click="getAlbumList">[album]获取收藏的专辑列表</view>
     <view @click="removeAlbum">[album]移除收藏的单张专辑</view>
-    <!-- <view @click="onRemove">删除</view> -->
+    <view @click="jumpSearchPage">跳转搜索页</view>
   </view>
 </template>
 
@@ -19,6 +19,11 @@ export default {
   },
   onLoad() {},
   methods: {
+    jumpSearchPage() {
+      wx.navigateTo({
+        url: '/pages/search-page/index'
+      })
+    },
     async search() {
       const res = await wx.cloud.callFunction({
         name: "apiEntry",
@@ -76,8 +81,7 @@ export default {
         data: {
           type: "keep",
           action: "getAlbumList",
-          params: {
-          },
+          params: {},
         },
       });
     },
