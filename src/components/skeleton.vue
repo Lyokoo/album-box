@@ -7,7 +7,9 @@
         <view class="album-artist animate" />
       </view>
     </view>
-    <slot tt:else></slot>
+    <block tt:else>
+      <slot></slot>
+    </block>
   </block>
 </template>
 
@@ -35,6 +37,19 @@ export default {
   background-size: 400% 100%;
 }
 
+.animate {
+  animation: skeleton 1.5s ease infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
 .album-list {
   box-sizing: border-box;
   padding: 0 30rpx 30rpx;
@@ -60,30 +75,17 @@ export default {
 
   .album-name {
     @include background;
-    height: 30rpx;
+    height: 32rpx;
     margin-top: 6rpx;
     border-radius: 10rpx;
   }
 
   .album-artist {
     @include background;
-    margin-top: 8rpx;
+    margin-top: 10rpx;
     width: 50%;
-    height: 24rpx;
+    height: 26rpx;
     border-radius: 10rpx;
-  }
-}
-
-.animate {
-  animation: skeleton 1.5s ease infinite;
-}
-
-@keyframes skeleton {
-  0% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
   }
 }
 </style>

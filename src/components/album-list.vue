@@ -10,7 +10,7 @@
           class="album-cover"
           mode="aspectFill"
           :lazy-load="true"
-          :src="item.cover.mid"
+          :src="item.cover.s500"
         />
         <view class="album-name">{{ item.albumName }}</view>
         <view class="album-artist">{{ item.artistName }}</view>
@@ -41,11 +41,14 @@ export default {
 </script>
 
 <style lang="scss">
-
 @mixin ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@mixin background {
+  background: #f1f2f4;
 }
 
 .album-list {
@@ -65,6 +68,7 @@ export default {
   }
 
   .album-cover {
+    @include background;
     width: 330rpx;
     height: 330rpx;
     border-radius: 10rpx;

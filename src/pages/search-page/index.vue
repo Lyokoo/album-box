@@ -3,10 +3,15 @@
     <view class="search-bar">
       <u-search
         placeholder="专辑、歌曲、艺人等内容"
-        :show-action="false"
+        :show-action="true"
+        :clearabled="true"
         shape="square"
         height="64rpx"
+        :animation="true"
+        v-model="inputValue"
         @search="onSearch"
+        @custom="onSearch"
+        @clear="onClear"
       />
     </view>
     <view class="container">
@@ -23,6 +28,7 @@ export default {
   },
   data() {
     return {
+      inputValue: "",
       albumList: [],
       keepAlbums: [],
       pending: false,
@@ -30,9 +36,11 @@ export default {
   },
   onLoad() {},
   methods: {
+    // 搜索
     async onSearch(value) {
       try {
         this.pending = true;
+        this.albumList = [];
         const res = await wx.cloud.callFunction({
           name: "apiEntry",
           data: {
@@ -55,6 +63,11 @@ export default {
         //
         this.pending = false;
       }
+    },
+
+    // 清除输入框
+    onClear() {
+      this.inputValue = [];
     },
   },
 };

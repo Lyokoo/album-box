@@ -40,9 +40,11 @@ class SearchApi {
             trackCount: item.trackCount, // 专辑中的歌曲数量
             cover: {
               // 专辑封面
-              low: getClipImageUrl(item.artworkUrl100, 100),
-              mid: getClipImageUrl(item.artworkUrl100, 1000),
-              high: getClipImageUrl(item.artworkUrl100, 3000),
+              s100: getClipImageUrl(item.artworkUrl100, 100),
+              s500: getClipImageUrl(item.artworkUrl100, 500),
+              s1000: getClipImageUrl(item.artworkUrl100, 1000),
+              s2000: getClipImageUrl(item.artworkUrl100, 2000),
+              s3000: getClipImageUrl(item.artworkUrl100, 3000),
             },
             releaseDate: item.releaseDate, // 发行时间
           };
