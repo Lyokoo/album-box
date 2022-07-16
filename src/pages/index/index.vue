@@ -6,7 +6,7 @@
     <view @click="getAlbum">[album]获取收藏的单张专辑</view>
     <view @click="getAlbumList">[album]获取收藏的专辑列表</view>
     <view @click="removeAlbum">[album]移除收藏的单张专辑</view> -->
-    <view>跳转搜索页</view>
+    <view :style="{ fontSize: '50rpx' }">点击跳转搜索页</view>
     <!-- <view @click="jumpAlbumDetail">跳转详情页</view> -->
   </view>
 </template>
