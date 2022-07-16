@@ -2,7 +2,7 @@
   <block>
     <title-bar />
     <view class="bg" v-if="screenHeight && albumItem">
-      <view class="bg-image-holder" />
+      <image class="bg-image" mode="aspectFill" :src="albumItem.cover.s100" />
     </view>
     <view
       class="album-detail"
@@ -10,9 +10,13 @@
       :style="{ height: screenHeight + 'px' }"
     >
       <view class="container">
-        <image class="cover" :src="albumItem.cover.s1000" mode="aspectFill" />
+        <image class="cover" :src="albumItem.cover.s500" mode="aspectFill" />
         <view class="info" v-if="albumInfo.length">
-          <view class="row" v-for="item in albumInfo" v-bind:key="item[0]">
+          <view
+            class="row"
+            v-for="(item, index) in albumInfo"
+            v-bind:key="index"
+          >
             <text class="col" :decode="true">{{ item[0] }}</text>
             <text class="col" :decode="true">{{ item[1] }}</text>
           </view>
@@ -106,7 +110,7 @@ export default {
             wx.showToast({
               title: "保存成功",
               icon: "success",
-              mask: "true",
+              mask: true,
               duration: 1500,
             });
             this.pending = false;
@@ -119,7 +123,7 @@ export default {
           wx.showToast({
             title: "保存失败",
             icon: "error",
-            mask: "true",
+            mask: true,
             duration: 1500,
           });
         }
@@ -166,12 +170,9 @@ export default {
     width: 100%;
     height: 100%;
     transform-origin: center;
-  }
-
-  .bg-image-holder {
-    width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, 0.7);
+    filter: blur(10rpx) brightness(0.7);
+    transform: scale(1.2);
   }
 }
 
@@ -198,6 +199,7 @@ export default {
     display: flex;
     font-size: 28rpx;
     color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
     padding-left: 130rpx;
     box-sizing: border-box;
 
@@ -212,7 +214,7 @@ export default {
       }
       &:last-child {
         text-align: left;
-        width: calc(100% - 25% - 130rpx);
+        width: calc(100% - 25% - 30rpx);
       }
     }
   }
@@ -227,14 +229,15 @@ export default {
   .btn {
     box-sizing: border-box;
     border-radius: 10rpx;
-    height: 80rpx;
-    font-size: 28rpx;
-    border: 3rpx solid #fff;
+    height: 90rpx;
+    font-size: 32rpx;
+    font-weight: bold;
+    border: 4rpx solid #fff;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 30rpx;
+    padding: 0 40rpx;
 
     &:not(:first-child) {
       margin-left: 30rpx;

@@ -13,6 +13,11 @@
           :lazy-load="true"
           :src="item.cover.s500"
         />
+        <image
+          class="album-cover-preload"
+          :lazy-load="true"
+          :src="item.cover.s100"
+        />
         <view class="album-name">{{ item.albumName }}</view>
         <view class="album-artist"
           >{{ item.artistName }}{{ ` · ${item.releaseDate.year}` }}</view
@@ -69,6 +74,7 @@ export default {
 .album-item {
   flex-shrink: 0;
   width: 330rpx;
+  position: relative;
 
   &:nth-child(n + 3) {
     margin-top: 30rpx;
@@ -79,6 +85,16 @@ export default {
     width: 330rpx;
     height: 330rpx;
     border-radius: 10rpx;
+  }
+
+  .album-cover-preload {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 1rpx;
+    height: 1rpx;
   }
 
   .album-name {

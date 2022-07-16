@@ -41,6 +41,9 @@ export default {
   methods: {
     // 搜索
     async onSearch(value) {
+      if (!value.trim()) {
+        return;
+      }
       try {
         this.pending = true;
         this.setAlbumList([]);
@@ -98,6 +101,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
   background: #fff;
   box-sizing: border-box;
   padding: 10rpx 30rpx;
