@@ -1,5 +1,6 @@
 const axios = require("axios").default;
 const { getClipImageUrl } = require("../utils/image");
+const { getDate } = require("../utils/time");
 const UserApi = require("./UserApi");
 
 class SearchApi {
@@ -46,7 +47,7 @@ class SearchApi {
               s2000: getClipImageUrl(item.artworkUrl100, 2000),
               s3000: getClipImageUrl(item.artworkUrl100, 3000),
             },
-            releaseDate: item.releaseDate, // 发行时间
+            releaseDate: getDate(item.releaseDate), // 发行时间
           };
         });
       });

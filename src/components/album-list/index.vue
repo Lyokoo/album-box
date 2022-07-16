@@ -5,6 +5,7 @@
         class="album-item"
         v-for="item in albumList"
         v-bind:key="item.albumId"
+        @click="onItemClick(item)"
       >
         <image
           class="album-cover"
@@ -13,14 +14,16 @@
           :src="item.cover.s500"
         />
         <view class="album-name">{{ item.albumName }}</view>
-        <view class="album-artist">{{ item.artistName }}</view>
+        <view class="album-artist"
+          >{{ item.artistName }}{{ ` · ${item.releaseDate.year}` }}</view
+        >
       </view>
     </view>
   </skeleton>
 </template>
 
 <script>
-import Skeleton from "./skeleton.vue";
+import Skeleton from "./sk.vue";
 export default {
   components: {
     skeleton: Skeleton,
@@ -36,7 +39,11 @@ export default {
     },
   },
   onLoad() {},
-  methods: {},
+  methods: {
+    onItemClick(item) {
+      this.$emit("itemclick", item);
+    },
+  },
 };
 </script>
 
@@ -86,7 +93,7 @@ export default {
   .album-artist {
     @include ellipsis;
     margin-top: 10rpx;
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.5);
     font-size: 24rpx;
     line-height: 26rpx;
     height: 26rpx;

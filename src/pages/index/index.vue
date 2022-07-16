@@ -1,12 +1,13 @@
 <template>
-  <view class="content">
+  <view class="content" @click="jumpSearchPage">
     <image class="logo" src="/static/logo.png"></image>
-    <view @click="search">[search] 搜索</view>
+    <!-- <view @click="search">[search] 搜索</view>
     <view @click="keepAlbum">[album]收藏单张专辑</view>
     <view @click="getAlbum">[album]获取收藏的单张专辑</view>
     <view @click="getAlbumList">[album]获取收藏的专辑列表</view>
-    <view @click="removeAlbum">[album]移除收藏的单张专辑</view>
-    <view @click="jumpSearchPage">跳转搜索页</view>
+    <view @click="removeAlbum">[album]移除收藏的单张专辑</view> -->
+    <view>跳转搜索页</view>
+    <!-- <view @click="jumpAlbumDetail">跳转详情页</view> -->
   </view>
 </template>
 
@@ -21,8 +22,13 @@ export default {
   methods: {
     jumpSearchPage() {
       wx.navigateTo({
-        url: '/pages/search-page/index'
-      })
+        url: "/pages/search-page/index",
+      });
+    },
+    jumpAlbumDetail() {
+      wx.navigateTo({
+        url: `/pages/album-detail/index?albumId=${535824731}`,
+      });
     },
     async search() {
       const res = await wx.cloud.callFunction({

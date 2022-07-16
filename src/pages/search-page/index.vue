@@ -15,13 +15,18 @@
       />
     </view>
     <view class="container">
-      <album-list :albumList="albumList" :pending="pending" />
+      <album-list
+        :albumList="albumList"
+        :pending="pending"
+        @itemclick="onItemClick"
+      />
     </view>
   </view>
 </template>
 
 <script>
-import AlbumList from "../../components/album-list.vue";
+import AlbumList from "../../components/album-list";
+import { AlbumListCache } from "../../utils/cache";
 export default {
   components: {
     "album-list": AlbumList,
@@ -30,17 +35,15 @@ export default {
     return {
       inputValue: "",
       albumList: [],
-      keepAlbums: [],
       pending: false,
     };
   },
-  onLoad() {},
   methods: {
     // 搜索
     async onSearch(value) {
       try {
         this.pending = true;
-        this.albumList = [];
+        this.setAlbumList([]);
         const res = await wx.cloud.callFunction({
           name: "apiEntry",
           data: {
@@ -53,8 +56,7 @@ export default {
         });
         const code = res?.result?.code;
         if (code === 2000) {
-          this.albumList = res.result.data.list;
-          this.keepAlbums = res.result.data.keepAlbums;
+          this.setAlbumList(res.result.data.list);
           this.pending = false;
         } else {
           throw new Error("请稍后再试");
@@ -62,12 +64,28 @@ export default {
       } catch (e) {
         //
         this.pending = false;
+        this.setAlbumList([]);
       }
     },
 
     // 清除输入框
     onClear() {
       this.inputValue = [];
+    },
+
+    // 设置专辑列表和缓存
+    setAlbumList(list = []) {
+      this.albumList = list;
+      AlbumListCache.set(list);
+    },
+
+    // 跳转详情页
+    onItemClick(item) {
+      if (item?.albumId) {
+        wx.navigateTo({
+          url: `/pages/album-detail/index?albumId=${item?.albumId}`,
+        });
+      }
     },
   },
 };
