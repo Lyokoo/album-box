@@ -151,28 +151,6 @@ export default {
   overflow: hidden;
 }
 
-.title-bar {
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  right: 0;
-  box-sizing: border-box;
-  padding-left: 20rpx;
-  overflow: hidden;
-
-  .back-icon {
-    width: 60rpx;
-    height: 60rpx;
-    background: rgb(255, 255, 255, 0.7);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10rpx);
-  }
-}
-
 .bg {
   position: fixed;
   top: 0;
