@@ -101,18 +101,18 @@ export default {
     @include ellipsis;
     color: #000;
     font-size: 30rpx;
-    line-height: 32rpx;
-    height: 32rpx;
-    margin-top: 6rpx;
+    line-height: 1;
+    height: 34rpx;
+    margin-top: 8rpx;
   }
 
   .album-artist {
     @include ellipsis;
-    margin-top: 10rpx;
+    margin-top: 12rpx;
     color: rgba(0, 0, 0, 0.5);
     font-size: 24rpx;
-    line-height: 26rpx;
-    height: 26rpx;
+    line-height: 1;
+    height: 28rpx;
   }
 }
 </style>

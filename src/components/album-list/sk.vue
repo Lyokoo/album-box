@@ -75,16 +75,16 @@ export default {
 
   .album-name {
     @include background;
-    height: 32rpx;
-    margin-top: 6rpx;
+    height: 34rpx;
+    margin-top: 8rpx;
     border-radius: 10rpx;
   }
 
   .album-artist {
     @include background;
-    margin-top: 10rpx;
+    margin-top: 12rpx;
     width: 50%;
-    height: 26rpx;
+    height: 28rpx;
     border-radius: 10rpx;
   }
 }
